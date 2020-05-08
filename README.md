@@ -13,3 +13,43 @@ D3_스마트 자전거 자물쇠
 ![Image01](https://q2ze1q.ch.files.1drv.com/y4mkWEEEQqILHw3fbl0KNWJE4uDT5oDZVe3wBXGMOsiHUSlqOyJUR6jBE5l3qlXFsWmM_GlVNhuogZgPe6Et4p_-XDTG8s6FbXTCcdm8NFLIMVk0a3svDGwY5JucY3h2t_HhatsW3JGXsuHzffLmOogVAHyZrfA7819xSYxhnfGB4aJecVxpDDrH51e7X12RNa2JtC0Z5rf4OZFJ6nS-PmlxQ?width=622&height=324&cropmode=none)<br>
 ![Image02](https://rgze1q.ch.files.1drv.com/y4mQV2M_TJKGiAHSWT-LRi74IrFCSRutAXLhfKuiAajg8--Q688_otjKGvlwcpIO1EAyqBatfTutYFL1dgRjsJUmGtDuLBBVNSNlocK5OE46KEJ__al2-smvDYIyZsGOrUlaCPOwbZqOVbfCJRGorFyoHRAQjlZAmTsOQh1WcPGlKUTqstPLCZ6FEtrlXsvgHS8uJycwMljDYYE0qwAZM33Xw?width=726&height=731&cropmode=none)<br>
 지문인식 센서를 사용하여 지문의 일치 여부에 따라 서보모터가 동작하여 자물쇠가 열리도록 한다. 또한 LED를 사용하여 색깔에 따라서 자물쇠의 현 상태를 시각적으로 표시해준다. 블루투스를 이용하여 라즈베리파이와 스마트폰을 연동함으로써 스마트폰을 통해서도 자물쇠를 열 수 있다. 그리고 스마트폰 앱에서 날씨정보를 받아와 기상에 따라서 자전거를 실내에 들여야 할 때를 알려준다. 그리고 밤에 자전거를 찾기 위해 앱에서 LED 버튼을 누르면 점등하도록 만들어 편의를 더했다. 부가적으로 자이로센서를 사용하여 기울기 값을 받아와 정해둔 값을 넘으면 도난으로 인식해 AMP를 통해 경보알림을 해준다.
+
+## 시험 및 평가
+### 기타장치↔라즈베리파이
+1. 라즈베리 파이와 지문센서간 UART 통신 확인.
+2. 입력 COMMAND로부터 올바른 RESPONSE를 받는지 확인.
+3. 지문센서로부터 라즈베리파이로 특징점을 가져와 저장
+4. 이미지로부터 특징점 추출하기.
+5. 특징점을 새로 들어온 지문의 특징점과 비교하기.
+6. 서보모터로 신호를 보내 동작 확인.
+7. AMP로 신호를 보내 동작 확인.
+8. XOR연산을 통한 저장 되는 특징점 암호화
+
+### 스마트폰↔라즈베리파이
+1. 블루투스를 통한 상호간의 연결상태 확인
+2. 어플을 통해 텍스트 파일 생성 및 저장
+3. 현재 위치데이터 확인 및 기상데이터 받아오기
+4. LED,AMP,서보모터를 어플을 통해 제어
+5. 일정 시간동안 아무 입력이 없을 때 슬립모드로 변경
+6. 마스터키 기능을 활용하여 어플리케이션을 통한 자물쇠 제어가 가능하도록 설계 
+
+### 결과 도출
+지문 센서를 활용하여 지문 데이터를 얻고 라즈베리 파이를 통해 지문 데이터의 이미지를 텍스트 파일로 변환하여 내부에 저장하였다.
+이를 통해 구축된 데이터 베이스와 지문 센서를 통해 들어오는 새로운 지문을 비교, 대조하여 지문들 간의 매칭값을 얻는 것에 성공했다.
+안드로이드 어플리케이션과 라즈베리파이 간의 RFCOMM 통신을 통해 스마트폰에서 보내는 신호를 라즈베리 파이에서 받아 명령어로 변환하여 동작 수행 그리고 주변 장치의 제어 등이 가능하도록 설계했다.
+라즈베리 파이에서 어플리케이션과 각종 센서들에 신호를 보내 잘 작동함을 확인하였다.
+
+## 기대 결과 및 효과
+- 생체인식을 통하여 편의성과 보안성을 기존 아날로그 방식에 비하여 크게 증진시킬 수 있다.
+- 자이로 센서와 블루투스 통신을 이용하여 사고 발생시 빠른 조치를 취할 수 있다.
+- 와이파이를 이용한 서버와의 통신으로 지속적인 펌웨어 업데이트가 가능하다.
+- 도난 발생시 도난 발생지역 데이터를 수집하여 추후 다른 이용자들에게 도난발생지역을 이용할 때 알림을 해줘서 도난 위험을 낮출 수 있다.
+- 기상 정보를 사용자에게 필요한 시점에 제공해 줌으로써 효율적인 자전거 사용 가능.
+
+## 참고 문헌
+사물인터넷을 품은 라즈베리파이 – 김성우 저 (제이펌)
+(졸업 작품 개발을 위한) 안드로이드 실무 프로그래밍 - 이준형,김운용,최명복 (21세기사)
+(Android Studio를 활용한) 안드로이드 프로그래밍 - 우재남,박길식 (한빛미디어)
+https://en.wikipedia.org/wiki/Encryption
+
+
